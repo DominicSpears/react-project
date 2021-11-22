@@ -1,0 +1,62 @@
+.taskBody {
+    background-color: lightblue;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 40px;
+    padding: 0;
+    margin: 0;
+    color: #0075ff;
+    text-align: center;
+}
+
+.counter {
+    text-align: center;
+    font-size: small;
+}
+
+.addTask {
+    text-align: center;
+    color: #0075ff;
+}
+
+.addButton {
+    color: white;
+    background-color: #0075ff;
+    border: 2px solid #0075ff;
+    border-radius: 2px;
+}
+
+.addButton:hover {
+    color: #0075ff;
+    background-color: white;
+}
+
+.list {
+    padding: 5px 10px;
+}
+
+.clearContainer {
+    height: 30px;
+    position: relative;
+}
+
+.clearButton {
+    color: white;
+    background-color: #0075ff;
+    border: 2px solid #0075ff;
+    border-radius: 2px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.clearButton:hover {
+    color: #0075ff;
+    background-color: white;
+}
