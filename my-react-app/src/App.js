@@ -41,7 +41,6 @@ function App() {
 
   return (
     <>
-    
     <p className='title'>Task Manager</p>
     <div className='counter'>{todos.filter(todo => !todo.complete).length} Tasks Remaining</div>
     <p className='addTask'>
