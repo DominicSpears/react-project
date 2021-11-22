@@ -1,27 +1,52 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
+import { v4 as uuidv4 } from 'uuid';
 
+const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
 function App() {
-  const [items, setTodos] = useState([])
+  const [todos, setTodos] = useState([])
   const todoNameRef = useRef()
+
+  useEffect (() => {
+    const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedTodos) setTodos(storedTodos)
+  }, [])
+
+  useEffect (() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+  }, [todos])
+
+  function toggleTodo(id) {
+    const newTodos = [...todos]
+    const todo = newTodos.find(todo => todo.id === id)
+    todo.complete = !todo.complete
+    setTodos(newTodos)
+  }
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value
     if (name === '') return
     setTodos (prevTodos => {
-      return [...prevTodos, {id: 1, name: name, complete: false}]
+      return [...prevTodos, {id: uuidv4(), name: name, complete: false}]
     })
     todoNameRef.current.value = null
   }
 
+  function handleClearTodos() {
+    const newTodos = todos.filter(todo => !todo.complete)
+    setTodos(newTodos)
+  }
+
   return (
     <>
-      <TodoList items={items}/>
+      <h3>Task Manager</h3>
       <input ref={todoNameRef} type="text" />
-      <button onClick={handleAddTodo}>Add Item</button>
-      <button>Clear Item</button>
-      <div>0 items remaining</div>
+      <button onClick={handleAddTodo}>Add Task</button>
+      <p><TodoList todos={todos} toggleTodo={toggleTodo} /></p>
+      <p><button onClick={handleClearTodos}>Clear Completed Tasks</button></p>
+      <div>{todos.filter(todo => !todo.complete).length} Tasks Remaining</div>
+      
     </>
   )
 }
